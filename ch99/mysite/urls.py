@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from bookmark.views import BookmarkDV, BookmarkLV
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # class-based views
+    path('bookmark/', BookmarkLV.as_view(), name= 'index'), # 북마크 리스트
+    path('bookmark/<int:pk>/', BookmarkDV.as_view(), name= 'detail'), # 북마크 정보
 ]
