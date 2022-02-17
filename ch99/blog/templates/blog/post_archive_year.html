@@ -1,14 +1,13 @@
-<h1>Post Archives until {% now "N d, Y" %}</h1>
+<h1>Post Archives for {{ year|date:"Y" }}</h1>
+
 <ul>
     {% for date in date_list %}
     <li style="display: inline;">
-        <a href="{% url 'blog:post_yaer_archive' date|date:'Y' %}">
-            Year{{ date|date:'Y' }}</a>
-    </li>
+        <a href="{% url 'blog:post_month_archive' year|date:'Y' data|date:'b' %}">
+            {{ date|date:"F" }}</a></li>
     {% endfor %}
 </ul>
-
-<br/>
+<br>
 
 <div>
     <ul>
