@@ -7,7 +7,7 @@ from blog.models import Post
 class PostLV(ListView):
     model = Post # PostLV 클래스의 대상 테이블은 Post 테이블이다.
     template_name = 'blog/post_all.html' # 템플릿 파일 지정. 지정하지 않으면 파일명은 'blog/post_list.html'이 된다.
-    context_object_name = 'post' # 템플릿 파일로 넘겨주는 객체 리스트에 대한 컨텍스트 변수명 지정. 
+    context_object_name = 'posts' # 템플릿 파일로 넘겨주는 객체 리스트에 대한 컨텍스트 변수명 지정. 
     paginate_by = 2 # 한 페이지에 보여주는 객체 리스트의 숫자. 페이징 기능이 활성화되면 하단에 페이지 이동 버튼을 만들 수 있다.
 
 class PostDV(DetailView):
