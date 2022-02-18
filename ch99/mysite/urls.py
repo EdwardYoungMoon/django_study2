@@ -16,13 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include # include로 앱의 APP_URLCONF로 처리 위임
 # from bookmark.views import BookmarkDV, BookmarkLV
+from mysite.views import HomeView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', HomeView.as_view(), name='home'),
     path('bookmark/', include('bookmark.urls')),
     path('blog/', include('blog.urls')),
-
-    # # class-based views
-    # path('bookmark/', BookmarkLV.as_view(), name= 'index'), # 북마크 리스트
-    # path('bookmark/<int:pk>/', BookmarkDV.as_view(), name= 'detail'), # 북마크 정보
 ]
