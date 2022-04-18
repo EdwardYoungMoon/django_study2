@@ -4,6 +4,6 @@ from bookmark.models import Bookmark
 class BookmarkLV(ListView):
     model = Bookmark
 
-class BookamrkDV(DetailView):
+class BookmarkDV(DetailView):
     model = Bookmark
 
