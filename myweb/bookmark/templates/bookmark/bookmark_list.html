@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Django Bookmark List</title>
+<title>Django Bookmark List</title>
 </head>
+
 <body>
-    
-<div id = 'content'>
+
+<div id="container">
+
     <h1>Bookmark List</h1>
 
     <ul>
         {% for bookmark in object_list %}
-            <li><a href = {% url 'detail' bookmark.id %}>{{ bookmark }}</a></li>
+            <li><a href="{% url 'bookmark:detail' bookmark.id %}">{{ bookmark }}</a></li>
         {% endfor %}
     </ul>
 
