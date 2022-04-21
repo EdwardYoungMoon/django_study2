@@ -1,3 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}bookmark_list.html{% endblock %}
+
+{% block content %}
+<h1>Bookmark List</h1>
+<br>
+
+    <ul>
+        {% for bookmark in object_list %}
+            <li><a href="{% url 'bookmark:detail' bookmark.id %}">{{ bookmark }}</a></li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
+
+<!--
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,4 +36,5 @@
 </div>
 
 </body>
-</html>
+</html> -->
+

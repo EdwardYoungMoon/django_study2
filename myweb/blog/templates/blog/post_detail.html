@@ -1,21 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}post_detail.html{% endblock %}
+
+{% block content %}
+<div id="content">
+
 <h2>{{ object.title }}</h2>
 
-<p>
-    {% if object.get_previous %}
-    <a href="{{ object.get_previous.get_absolute_url }}" title="View previous post" 
-        &laquo;-- {{ object.get_previous }}>   <!--&laquo는 html 특수문자(<<)를 의미 --> <!-- -->
-    </a>
+<p class="other_posts">
+    {% if object.get_previous_by_modify_date %}
+    <a href="{{ object.get_previous_post.get_absolute_url }}" title="View previous post">&laquo;--{{ object.get_previous_post }}</a>
     {% endif %}
 
-    {% if object.get_next %}
-    | <a href="{{ object.get_next.get_absolute_url }}" title="View next post">{{ object.get_next }} --&raquo;        
-    </a>
+    {% if object.get_next_by_modify_date %}
+    | <a href="{{ object.get_next_post.get_absolute_url }}" title="View next post">{{ object.get_next_post }}--&raquo;</a>
     {% endif %}
 </p>
 
-<p>{{ object.modify_dt|date:"j F Y" }}</p>
-<br>
+<p class="date">{{ object.modify_date|date:"j F Y" }}</p>
+<br/>
 
-<div>
-    {{ object.content|linebreaks }} <!-- linebreaks템플릿 필터는 \n (newline)을 인식하게 한다. -->
+<div class="body">
+    {{ object.content|linebreaks }}
 </div>
+
+</div>
+{% endblock %}

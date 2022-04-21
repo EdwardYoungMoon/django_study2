@@ -1,25 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}post_all.html{% endblock %}
+
+{% block content %}
+<div id="content">
+
 <h1>Blog List</h1>
-<br>
 
 {% for post in posts %}
-    <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
-    {{ post.modify_dt|date:"N d, Y" }} <!--modify_dt 속성값을 N d, Y 포맷으로 출력-->
-    <p>{{ post.description }}</p> 
+    <h2><a href='{{ post.get_absolute_url }}'>{{ post.title }}</a></h2>
+    {{ post.modify_date|date:"N d, Y" }}
+    <p>{{ post.description }}</p>
 {% endfor %}
 
-<br> <!--공백 줄 생성-->
+<br/>
 
 <div>
-    <span> <!--span 태그 내의 요소들은 같은 줄에 배치된다. 페이징 기능을 위한 줄이다.-->
-        {% if page_obj.has_previous %} <!--현재 페이지를 기준으로 이전 페이지가 있는지 확인-->
-            <a href="?page={{ page_obj.previous_page_number }}">Previous Page</a>
+    <span>
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">PreviousPage</a>
         {% endif %}
-        
+      
         Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-
+      
         {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">Next Page</a>
+            <a href="?page={{ page_obj.next_page_number }}">NextPage</a>
         {% endif %}
     </span>
 
 </div>
+
+</div>
+{% endblock %}
