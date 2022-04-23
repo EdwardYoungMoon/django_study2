@@ -2,7 +2,20 @@
 
 {% block title %}post_detail.html{% endblock %}
 
+{% block extra-style %}
+<style>
+.post-body{
+    width: 80%;
+    margin: auto;
+    font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+    font-size: 16px;
+}    
+</style>
+{% endblock %}
+
+
 {% block content %}
+<div class="post-body">
 <div id="content">
 
 <h2>{{ object.title }}</h2>
@@ -18,11 +31,56 @@
 </p>
 
 <p class="date">{{ object.modify_date|date:"j F Y" }}</p>
-<br/>
+<br>
 
 <div class="body">
     {{ object.content|linebreaks }}
 </div>
 
+<br>
+<div>
+    <b>TAGS</b> <i class="fas fa-tag"></i>
+    {% load taggit_templatetags2_tags %}
+    {% get_tags_for_object object as "tags" %}
+    {% for tag in tags %}
+    <a href="{% url 'blog:tagged_object_list' tag.name %}">{{ tag.name }}</a>
+    {% endfor %}
+    &emsp;
+    <a href="{% url 'blog:tag_cloud' %}"><span class="btn btn-info btn-sm">TagCloud</span></a>
 </div>
+
+<br>
+<div id="disqus_thread"></div>
+</div>
+
+<br>
+<div id="disquis_thread"></div>
+</div>
+{% endblock %}
+
+{% block extra-script %}
+<script>
+/** 
+Recommended configuration variables: edit and uncomment this saction
+below to insert dynamic values from your platform of cms
+learn why defining these variables is important
+https://disqus.com/admin/universalcode/#configuration-variaables
+**/
+
+var disqus_config = function(){
+    this.page.identifier = '{{ disqus_id }}';
+    this.page.url = '{{ disqus_url }}';
+    this.page.title = '{{ disqus_title }}'
+};
+
+(function() { // Don't edit below this line
+    var d = document, s = d.createElement('script');
+    s.src = 'https://{{ disqus_short }}.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Data());
+    (d.head || d.body).appendChild(s);})();
+</script>
+<nonscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_nonscirpt">
+    comments powered by Disqus.</a></nonscript>
+
+
 {% endblock %}

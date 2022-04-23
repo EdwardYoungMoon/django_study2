@@ -1,6 +1,7 @@
 from operator import mod
 from django.db import models
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 class Post(models.Model):
     title = models.CharField(verbose_name='TITLE', max_length=50)
@@ -9,6 +10,7 @@ class Post(models.Model):
     content = models.TextField('CONTENT')
     create_dt = models.DateTimeField('CREATE DATE', auto_now_add=True)
     modify_dt = models.DateTimeField('MODIFY DATE', auto_now=True)
+    tags = TaggableManager(blank=True) 
 
     # 필드 속성 외에 필요한 파라미터가 있으면 Meta 내부 클래스로 정의.
     class Meta:

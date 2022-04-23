@@ -1,8 +1,15 @@
-from django.views.generic import ListView, DetailView
+from re import template
+from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthArchiveView
 from django.views.generic.dates import DayArchiveView, TodayArchiveView
+from django.conf import settings
 
 from blog.models import Post
+
+from django.views.generic import FormView
+from blog.forms import PostSearchForm
+from django.db.models import Q
+from django.shortcuts import render
 
 class PostLV(ListView):
     model = Post # PostLV 클래스의 대상 테이블은 Post 테이블이다.
@@ -12,6 +19,14 @@ class PostLV(ListView):
 
 class PostDV(DetailView):
     model = Post
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['disqus_short'] = f"{settings.DISQUS_SHORTNAME}"
+        context['disqus_id'] = f"post-{self.object.id}-{self.object.slug}"
+        context['disqus_url'] = f"{settings.DISQUS_MY_DOMAIN}{self.object.get_absolute_url()}"
+        context['disqus_title'] = f"{self.object.slug}"
+        return context
 
 class PostAV(ArchiveIndexView):
     model = Post
@@ -34,6 +49,39 @@ class PostTAV(TodayArchiveView):
     model = Post
     date_field = 'modify_dt'
 
+class TagCloudTV(TemplateView):
+    template_name = 'taggit/taggit_cloud.html'
 
-'''페이징 기능이나 날짜 기반 제네릭 뷰를 직접 코딩한다면 쉽지 않을 것이다. 제네릭 뷰를 통해 복잡한 로직을 장고에서 처리하고,
-개발자는 단 몇줄로 코딩을 완료할 수 있다.'''
+class TaggedObjectLV(ListView):
+    template_name = 'taggit/taggit_post_list.html'
+    model = Post
+
+    def get_queryset(self):
+        # 책이랑 다름 
+        return Post.objects.filter(tags__name__in = [self.kwargs.get('tag')]) 
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tagname'] = self.kwargs['tag']
+        return context
+
+# Form View
+class SearchFormView(FormView):
+    form_class = PostSearchForm
+    template_name = 'blog/post_search.html'
+
+    def form_valid(self, form):
+        searchWord = form.cleaned_data['search_word']
+        post_list = Post.objects.filter(Q(title__icontains=searchWord) 
+        | Q(description__icontains=searchWord) 
+        | Q(content__icontains=searchWord)).distinct()
+
+        context = {}
+        context['form'] = form
+        context['search_form'] = searchWord
+        context['object_list'] = post_list
+
+        return render(self.request, self.template_name, context) # No Redirection
+# 84쪽까지
+
+
