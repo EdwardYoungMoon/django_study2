@@ -51,36 +51,32 @@
 
 <br>
 <div id="disqus_thread"></div>
-</div>
-
-<br>
-<div id="disquis_thread"></div>
-</div>
 {% endblock %}
 
 {% block extra-script %}
 <script>
-/** 
-Recommended configuration variables: edit and uncomment this saction
-below to insert dynamic values from your platform of cms
-learn why defining these variables is important
-https://disqus.com/admin/universalcode/#configuration-variaables
-**/
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
 
-var disqus_config = function(){
-    this.page.identifier = '{{ disqus_id }}';
-    this.page.url = '{{ disqus_url }}';
-    this.page.title = '{{ disqus_title }}'
-};
+    var disqus_config = function () {
+        this.page.identifier = '{{ disqus_id }}';
+        this.page.url = '{{ disqus_url }}';
+        this.page.title = '{{ disqus_title }}';
+    };
 
-(function() { // Don't edit below this line
+    (function() { // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
-    s.src = 'https://{{ disqus_short }}.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Data());
-    (d.head || d.body).appendChild(s);})();
+    s.src =  'https://{{ disqus_short }}.disqus.com/embed.js' //'https://pydjango-web-programming-qsyfsaizf7.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
 </script>
-<nonscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_nonscirpt">
-    comments powered by Disqus.</a></nonscript>
-
-
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 {% endblock %}
