@@ -72,16 +72,15 @@ class SearchFormView(FormView):
 
     def form_valid(self, form):
         searchWord = form.cleaned_data['search_word']
-        post_list = Post.objects.filter(Q(title__icontains=searchWord) 
-        | Q(description__icontains=searchWord) 
+        post_list = Post.objects.filter(Q(title__icontains=searchWord) | Q(description__icontains=searchWord)
         | Q(content__icontains=searchWord)).distinct()
 
         context = {}
-        context['form'] = form
-        context['search_form'] = searchWord
+        context['from'] = form
+        context['search_term'] = searchWord
         context['object_list'] = post_list
 
-        return render(self.request, self.template_name, context) # No Redirection
-# 84쪽까지
+        return render(self.request, self.template_name, context) # HttpResponse 객체 반환. No Redirection
+
 
 
