@@ -3,6 +3,8 @@ from django.contrib import admin
 from django.urls import path, include
 from mysite.views import HomeView 
 
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -12,7 +14,10 @@ urlpatterns = [
     path('bookmark/', include('bookmark.urls')),
     path('blog/', include('blog.urls')),
 
+    path('photo/', include('photo.urls')),
+
     #class-based views
     #path('bookmark/',  BookmarkLV.as_view(), name = 'index'),
     #path('bookmark/<int:pk>/', BookmarkDV.as_view(), name='detail'),
-]
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT) #기존URL 패턴에 static 함수가 반환하는 패턴 추가 
+# static(prefix, view=django.views.static.serve, **kwargs)
