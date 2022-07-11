@@ -4,7 +4,7 @@ from photo import views
 app_name = 'photo'
 urlpatterns = [
     # Ex : /photo/
-    path('', views.AlbumLV.as_view(), nane='index'),
+    path('', views.AlbumLV.as_view(), name='index'),
     
     # Ex : /photo/album/, same as /photo/
     path('album/', views.AlbumLV.as_view(), name='album_list'),

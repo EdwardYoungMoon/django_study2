@@ -9,4 +9,3 @@ class AlbumDV(DetailView):
 
 class PhotoDV(DetailView):
     model = Photo
-

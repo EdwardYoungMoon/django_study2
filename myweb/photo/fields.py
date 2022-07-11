@@ -8,7 +8,7 @@ from django.db.models.fields.files import ImageField, ImageFieldFile
 
 
 class ThumbnailImageFieldFile(ImageFieldFile): # 파일시스템에 직접 파일을 쓰고 지우는 작업
-    def _add_thumb(s):
+    def _add_thumb(self, s):
         parts = s.split('.')
         parts.insert(-1, 'thumb')
         if parts[-1].lower() not in ['jpeg', 'jpg']:
@@ -18,6 +18,7 @@ class ThumbnailImageFieldFile(ImageFieldFile): # 파일시스템에 직접 파�
     @property  # property 데코레이터를 사용하면, 메소드를 멤버변수처럼 사용할 수 있다.
     def thumb_path(self): #이미지를 처리하는 필드는 파일의 경로와 url 속성을 제공해야 한다. 원본 파일의 경로인 path 속성에 추가해, 썸네일의 경로인 thumb_path 속성을 만든다. 
         return self._add_thumb(self.path)
+    
 
     @property
     def thub_url(self): #원본파일의 url속성에 추가해, 썸네일의 URL인 thumb_url 속성을 만든다. 

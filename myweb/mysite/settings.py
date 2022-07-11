@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'taggit.apps.TaggitAppConfig',
     'taggit_templatetags2',
+    'widget_tweaks',
     'photo.apps.PhotoConfig',
 ]
 
@@ -140,3 +141,6 @@ TAGGIT_LIMIT = 50 # default = 10
 
 DISQUS_SHORTNAME = 'pydjango-web-programming'
 DISQUS_MY_DOMAIN = 'http://192.168.56.101:8000'
+
+# LOGIN_URL = '/acounts/login/'
+LOGIN_REDIRECT_URL = '/'
