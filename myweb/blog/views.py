@@ -11,6 +11,8 @@ from blog.forms import PostSearchForm
 from django.db.models import Q
 from django.shortcuts import render
 
+
+
 class PostLV(ListView):
     model = Post # PostLV 클래스의 대상 테이블은 Post 테이블이다.
     template_name = 'blog/post_all.html' # 템플릿 파일 지정. 지정하지 않으면 파일명은 'blog/post_list.html'이 된다.

@@ -1,6 +1,7 @@
 from django.urls import path, re_path
 from blog import views
 
+
 app_name = 'blog'
 urlpatterns = [
     # /blog/ 
@@ -21,5 +22,15 @@ urlpatterns = [
     path('tag/', views.TagCloudTV.as_view(), name='tag_cloud'),
     path('tag/<str:tag>/', views.TaggedObjectLV.as_view(), name='tagged_object_list'),
     path('search/', views.SearchFormView.as_view(), name='search'),
+
+    #ex) /blog/add/
+    path('add/', views.PostCreateView.as_view(), name='add',),
+
+    #ex) /blog/change/
+    path('change/', views.PostChangeLV.as_view(), name='change',),
+
+    path('<int:pk>/update/', views.PostUpdateView.as_view(), name='update',),
+    path('<int:pk>/delete/', views.PostDeleteView.as_view(), name='delete',),
+
 
 ]
