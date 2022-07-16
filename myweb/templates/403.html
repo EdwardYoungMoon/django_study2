@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}403.html{% endblock %}
+
+{% block content %}
+    <h1>Permission Denied</h1>
+    <br>
+
+    <div class="alert alert-danger">
+        <div class="font-weight-bold">{{ exception }}</div>
+        <!--{{exception}}은 permission_denied() handler에서 넘겨주는 template 변수이다.-->
+    </div>
+
+{% endblock %}

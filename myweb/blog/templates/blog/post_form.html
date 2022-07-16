@@ -1,0 +1,68 @@
+<!--Bookmark 레코드를 생성 또는 수정하기 위한 폼을 보여주는 화면-->
+
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}post_form.html{% endblock %}
+
+{% block content %}
+    <h1>Post Create/Update - {{user}}</h1> <!--user는 django.contrib.auth에서 제공하는 컨텍스트 변수로 User 객체가 담겨있다.-->
+    <p class='font-italic'>This is a creation or update form for your post.</p>
+
+    {% if form.errors %}
+    <div class='alert alert-danger'>
+        <div class='font-weight-bold'>Wrong! Please correct the errors(s) below.</div>
+        {{ form.errors }}
+    </div>
+    {% endif %}
+
+    <form action="." method="post" class="card pt-3">{% csrf_token %}
+        <div class="form-group row">
+            {{ form.title|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+            <div class="col sm-5">
+            {{ form.title|add_class:"form-control"|attr:"autofocus" }}
+            </div>
+        </div>
+
+        <div class='form-group row'>
+            {{ form.slug|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+            <div class="col-sm-5">
+                {{ form.slug|add_class:"form-contorl"|attr:"readonly" }} <!--slug필드에서는 readonly 속성으로 사용자가 입력할 수 없도록 한다. blog앱이 자동으로 만들어주기 때문.-->
+            </div>
+            <small class="form-text text-muted">{{ form.slug.help_text }}</small>
+        </div>
+
+        <div class="form-group row">
+            {{ form.description|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+            <div class="col sm-5">
+                {{ form.description|add_class:"form-control" }}
+            </div>
+            <small class="form-text text-muted">{{ form.description.help_text }}</small>
+        </div>
+
+        <div class="form-group row">
+            {{ form.content|add_label_class:"col-form-label col-sm2 ml-3 font-weight-bold" }}
+            <div class="col-sm-8">
+                {{ form.content|add_class:"form-control" }}
+            </div>
+        </div>
+
+
+
+        <div class="form-group row">
+            {{ form.tags|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+            <div class="col sm-5">
+                {{ form.tags|add_class:"form-control" }}
+            </div>
+            <small class="form-text text-muted">{{ form.tags.help_text }}</small>
+        </div>
+
+
+        <div class="form-group">
+            <div class="offset-sm-2 col-sm-5">
+                <input type="submit" value="Submit" class="btn btn-info" />
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

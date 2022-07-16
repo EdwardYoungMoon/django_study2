@@ -15,7 +15,7 @@ class BookmarkDV(DetailView):
 
 
 
-class BookmarkCreateView(CreateView):
+class BookmarkCreateView(LoginRequiredMixin ,CreateView):
     model = Bookmark
     fields = ['title', 'url']
     success_url = reverse_lazy('bookmark:index')
